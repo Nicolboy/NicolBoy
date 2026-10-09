@@ -17,7 +17,7 @@ superviseur qui la pilote.
 
 | | |
 |---|---|
-| [**KICAD-C2000-shield**](https://github.com/Nicolboy/KICAD-C2000-shield) | shield d'isolation et cartes devkit, KiCad 10 |
+| [**KICAD-C2000-devkit**](https://github.com/Nicolboy/KICAD-C2000-devkit) | shield d'isolation et cartes devkit, KiCad 10 |
 | [**CCS-C2000-hv-boost**](https://github.com/Nicolboy/CCS-C2000-hv-boost) | firmware TMS320F28027 — deux étages boost, 10 V → 500 V |
 | [**VSCODE-ESP32-hv-boost**](https://github.com/Nicolboy/VSCODE-ESP32-hv-boost) | ESP32-C3 — pont série, IHM OLED, API HTTP |
 
@@ -108,7 +108,7 @@ composants. **Le placement et le routage restent manuels** — ils encodent des
 choix qu'aucun script ne devine sur une chaîne de mesure de courant.
 
 C'est documenté, avec les pièges rencontrés et leur signature, dans
-[methode-kicad-claude.md](https://github.com/Nicolboy/KICAD-C2000-shield/blob/main/doc/methode-kicad-claude.md).
+[methode-kicad-claude.md](https://github.com/Nicolboy/KICAD-C2000-devkit/blob/main/doc/methode-kicad-claude.md).
 
 ---
 
