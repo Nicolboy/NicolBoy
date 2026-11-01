@@ -12,24 +12,34 @@ ne fonctionne pas encore y est écrit.
 
 ### Alimentation haute tension pour préamplis à tubes
 
-Trois dépôts, une seule chaîne : la carte, le firmware qui la régule, et le
-superviseur qui la pilote.
+Quatre dépôts, une seule chaîne : les deux cartes de puissance, le firmware
+qui les régule, et le superviseur qui les pilote.
 
 | | |
 |---|---|
+| [**KICAD-C2000-float-flyback**](https://github.com/Nicolboy/KICAD-C2000-float-flyback) | alimentation filaments (HT), carte KiCad 10 |
 | [**KICAD-C2000-devkit**](https://github.com/Nicolboy/KICAD-C2000-devkit) | shield d'isolation et cartes devkit, KiCad 10 |
 | [**CCS-C2000-hv-boost**](https://github.com/Nicolboy/CCS-C2000-hv-boost) | firmware TMS320F28027 — deux étages boost, 10 V → 500 V |
 | [**VSCODE-ESP32-hv-boost**](https://github.com/Nicolboy/VSCODE-ESP32-hv-boost) | ESP32-C3 — pont série, IHM OLED, API HTTP |
 
-Deux étages en cascade, 200 kHz puis 100 kHz. La protection est **matérielle
-et locale** : comparateurs analogiques et Trip Zone, environ 30 ns. Le
-superviseur propose des consignes, il n'a aucune autorité de sécurité.
+<img src="doc/KICAD-HT-pcbway.png" width="360" alt="Carte KICAD-C2000-float-flyback (HT)">
+
+Deux étages de tension, deux logiques différentes. **HT** : un étage
+abaisseur (buck), dont la tension de polarisation permet d'élever le
+secondaire flottant jusqu'à 80 V (valeur sérigraphiée sur la carte) —
+l'alimentation des filaments reste référencée près du potentiel de cathode,
+pas de la masse. **HV** : deux étages élévateurs (boost) en cascade, 200 kHz
+puis 100 kHz, 10 V → 500 V. La protection est **matérielle et locale** :
+comparateurs analogiques et Trip Zone, environ 30 ns. Le superviseur propose
+des consignes, il n'a aucune autorité de sécurité.
 
 Le shield est dessiné pour deux microcontrôleurs différents — F280037 et
 F28P551 — avec un connecteur **identique à 100 %**, obtenu en plaçant
 délibérément les LED sur les entrées-sorties non communes aux deux boîtiers.
 Son brochage est décrit en Markdown, les symboles KiCad en sont générés : les
 règles de conception deviennent exécutables au lieu d'être seulement écrites.
+
+<img src="doc/shield.png" width="280" alt="Shield d'isolation"> <img src="doc/devkit_B_F28P551.png" width="175" alt="Devkit F28P551"> <img src="doc/KICAD-HV.png" width="280" alt="Carte HV 500V">
 
 ### WireClaw — drone d'inspection piloté en langage naturel
 
