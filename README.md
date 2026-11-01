@@ -8,17 +8,20 @@ ne fonctionne pas encore y est écrit.
 
 ---
 
-## Deux systèmes complets
+## Deux projets en cours de réalisation
 
 ### Alimentation haute tension pour préamplis à tubes
 
-Quatre dépôts, une seule chaîne : les deux cartes de puissance, le firmware
-qui les régule, et le superviseur qui les pilote.
+Six dépôts, une seule chaîne : les deux cartes de puissance, la carte de
+contrôle, la carte d'alimentation, le firmware qui régule, et le
+superviseur qui pilote.
 
 | | |
 |---|---|
 | [**KICAD-C2000-float-flyback**](https://github.com/Nicolboy/KICAD-C2000-float-flyback) | alimentation filaments (HT), carte KiCad 10 |
+| [**KICAD-HV**](https://github.com/Nicolboy/KICAD-HV) | alimentation tension d'anode (200–500 V, boost double étage), carte KiCad 10 |
 | [**KICAD-C2000-devkit**](https://github.com/Nicolboy/KICAD-C2000-devkit) | shield d'isolation et cartes devkit, KiCad 10 |
+| [**KICAD-C2000-powershield**](https://github.com/Nicolboy/KICAD-C2000-powershield) | carte d'alimentation USB-C PD, liaison devkit/cartes filles, KiCad 10 |
 | [**CCS-C2000-hv-boost**](https://github.com/Nicolboy/CCS-C2000-hv-boost) | firmware TMS320F28027 — deux étages boost, 10 V → 500 V |
 | [**VSCODE-ESP32-hv-boost**](https://github.com/Nicolboy/VSCODE-ESP32-hv-boost) | ESP32-C3 — pont série, IHM OLED, API HTTP |
 
