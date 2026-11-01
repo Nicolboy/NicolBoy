@@ -22,24 +22,32 @@ qui les régule, et le superviseur qui les pilote.
 | [**CCS-C2000-hv-boost**](https://github.com/Nicolboy/CCS-C2000-hv-boost) | firmware TMS320F28027 — deux étages boost, 10 V → 500 V |
 | [**VSCODE-ESP32-hv-boost**](https://github.com/Nicolboy/VSCODE-ESP32-hv-boost) | ESP32-C3 — pont série, IHM OLED, API HTTP |
 
-<img src="doc/KICAD-HT-pcbway.png" width="360" alt="Carte KICAD-C2000-float-flyback (HT)">
+Deux étages de tension, deux logiques différentes.
 
-Deux étages de tension, deux logiques différentes. **HT** : un étage
-abaisseur (buck), dont la tension de polarisation permet d'élever le
-secondaire flottant jusqu'à 80 V (valeur sérigraphiée sur la carte) —
-l'alimentation des filaments reste référencée près du potentiel de cathode,
-pas de la masse. **HV** : deux étages élévateurs (boost) en cascade, 200 kHz
+<img src="doc/KICAD-HT-pcbway.png" width="280" alt="Carte HT, chauffage filaments">
+
+**Chauffage** : un étage abaisseur (buck), dont la tension de polarisation
+permet d'élever le secondaire flottant jusqu'à 80 V.
+
+<img src="doc/KICAD-HV.png" width="280" alt="Carte HV, tension d'anode">
+
+**Tension d'anode** : deux étages élévateurs (boost) en cascade, 200 kHz
 puis 100 kHz, 10 V → 500 V. La protection est **matérielle et locale** :
 comparateurs analogiques et Trip Zone, environ 30 ns. Le superviseur propose
 des consignes, il n'a aucune autorité de sécurité.
 
-Le shield est dessiné pour deux microcontrôleurs différents — F280037 et
-F28P551 — avec un connecteur **identique à 100 %**, obtenu en plaçant
-délibérément les LED sur les entrées-sorties non communes aux deux boîtiers.
-Son brochage est décrit en Markdown, les symboles KiCad en sont générés : les
-règles de conception deviennent exécutables au lieu d'être seulement écrites.
+<img src="doc/devkit_B_F28P551.png" width="175" alt="Devkit F28P551">
 
-<img src="doc/shield.png" width="280" alt="Shield d'isolation"> <img src="doc/devkit_B_F28P551.png" width="175" alt="Devkit F28P551"> <img src="doc/KICAD-HV.png" width="280" alt="Carte HV 500V">
+Le devkit est dessiné pour deux microcontrôleurs différents — F280037 et
+F28P551 — avec un connecteur **identique à 100 %**. Son brochage est décrit
+en Markdown, les symboles KiCad en sont générés : les règles de conception
+deviennent exécutables au lieu d'être seulement écrites.
+
+<img src="doc/shield.png" width="280" alt="Carte d'alimentation, liaison devkit / cartes filles">
+
+Une carte d'alimentation porte le devkit ESP32 et un écran OLED, et fait la
+liaison vers les cartes filles de conversion à découpage. Visualisation et
+paramétrage se font via une page HTML accessible en Wi-Fi et Bluetooth.
 
 ### WireClaw — drone d'inspection piloté en langage naturel
 
