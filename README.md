@@ -26,28 +26,36 @@ Deux étages de tension, deux logiques différentes.
 
 <img src="doc/KICAD-HT-pcbway.png" width="280" alt="Carte HT, chauffage filaments">
 
-**Chauffage** : un étage abaisseur (buck), dont la tension de polarisation
-permet d'élever le secondaire flottant jusqu'à 80 V.
+**Chauffage** : un étage abaisseur à découpage (buck), dont la tension de
+polarisation permet d'élever le secondaire flottant jusqu'à 80 V.
 
 <img src="doc/KICAD-HV.png" width="280" alt="Carte HV, tension d'anode">
 
 **Tension d'anode** : deux étages élévateurs (boost) en cascade, 200 kHz
-puis 100 kHz, 10 V → 500 V. La protection est **matérielle et locale** :
-comparateurs analogiques et Trip Zone, environ 30 ns. Le superviseur propose
-des consignes, il n'a aucune autorité de sécurité.
+puis 100 kHz, permettent d'obtenir entre 200 V et 500 V à partir d'une
+tension d'alimentation entre 11 V et 25 V. La protection est **matérielle
+et locale** via une logique rapide dédiée : comparateurs analogiques et
+Trip Zone, environ 30 ns de réaction.
 
 <img src="doc/devkit_B_F28P551.png" width="175" alt="Devkit F28P551">
 
-Le devkit est dessiné pour deux microcontrôleurs différents — F280037 et
-F28P551 — avec un connecteur **identique à 100 %**. Son brochage est décrit
-en Markdown, les symboles KiCad en sont générés : les règles de conception
-deviennent exécutables au lieu d'être seulement écrites.
+**Carte de contrôle** : cette carte de contrôle PWM/ADC est dessinée pour
+deux microcontrôleurs différents — F280037 et F28P551 — avec un connecteur
+**identique à 100 %**. Son brochage est décrit en Markdown, les symboles
+KiCad en sont générés : les règles de conception deviennent exécutables au
+lieu d'être seulement écrites. La boucle de régulation est intégralement
+logicielle, dans le firmware de ces microcontrôleurs de la famille C2000
+Texas Instruments, spécialisés dans la conversion d'énergie.
 
 <img src="doc/shield.png" width="280" alt="Carte d'alimentation, liaison devkit / cartes filles">
 
-Une carte d'alimentation porte le devkit ESP32 et un écran OLED, et fait la
-liaison vers les cartes filles de conversion à découpage. Visualisation et
-paramétrage se font via une page HTML accessible en Wi-Fi et Bluetooth.
+**Carte d'alimentation** : cette carte utilise une source d'alimentation
+USB-C Power Delivery contrôlée de 100 W. Elle permet de connecter les
+cartes filles de conversion à découpage au microcontrôleur et de les
+alimenter. Elle porte aussi la carte ESP32 et un écran OLED pour la
+visualisation et le paramétrage. Une page HTML accessible via hotspot
+Wi-Fi permet de contrôler les tensions et de visualiser les états et
+paramètres des cartes filles.
 
 ### WireClaw — drone d'inspection piloté en langage naturel
 
