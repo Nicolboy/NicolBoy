@@ -78,13 +78,13 @@ sol sous GStreamer avec détection annotée en temps réel.
 
 | | |
 |---|---|
-| [**CCS-MSP430-pwl**](https://github.com/Nicolboy/CCS-MSP430-pwl) | alimentation fantôme 48 V sur batterie, MSP430G2252 |
+| [**CCS-MSP430-pwl**](https://github.com/Nicolboy/CCS-MSP430-pwl) | alimentation fantôme 48 V sur 1x pile AA, MSP430G2252 |
 | [**CCS-MSPM0-pwl**](https://github.com/Nicolboy/CCS-MSPM0-pwl) | le même, porté sur MSPM0C1104 — Cortex-M0+ |
 
-Élévation vers 48 V par DC/DC polyphasé sur un microcontrôleur à 20 broches,
+Élévation 1V vers 48 V par DC/DC polyphasé sur un microcontrôleur à 20 broches,
 avec **auto-étalonnage sauvegardé en flash** : plutôt que de figer un rapport
 cyclique calculé, chaque carte se règle sur ses propres composants sous charge
-connue. Ce qui dispense de trier les inductances.
+connue.
 
 Le dépôt MSPM0 garde le journal du portage, périphérique par périphérique, dans
 l'ordre où ils ont été franchis.
