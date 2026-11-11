@@ -65,14 +65,15 @@ superviseur qui pilote.
 | [**KICAD-C2000-devkit**](https://github.com/Nicolboy/KICAD-C2000-devkit) | shield d'isolation et cartes devkit, KiCad 10 |
 | [**KICAD-C2000-powershield**](https://github.com/Nicolboy/KICAD-C2000-powershield) | carte d'alimentation USB-C PD, liaison devkit/cartes filles, KiCad 10 |
 | [**CCS-C2000-hv-boost**](https://github.com/Nicolboy/CCS-C2000-hv-boost) | firmware TMS320F28027 — deux étages boost, 10 V → 500 V |
-| [**VSCODE-ESP32-hv-boost**](https://github.com/Nicolboy/VSCODE-ESP32-hv-boost) | ESP32-C3 — pont série, IHM OLED, API HTTP |
+| [**VSCODE-ESP32-hv-boost**](https://github.com/Nicolboy/VSCODE-ESP32-hv-boost) | ESP32-C3 — pont série, IHM OLED, API HTTP — étage 1 testé, **91,7 % mesuré à 50 W** |
 
 Deux étages de tension, deux logiques différentes.
 
 <p align="center"><img src="doc/KICAD-HT-pcbway.png" width="280" alt="Carte HT, chauffage filaments"></p>
 
-**Chauffage** : un étage abaisseur à découpage (buck), dont la tension de
-polarisation permet d'élever le secondaire flottant jusqu'à 80 V.
+**Chauffage** : une alimentation flyback, filament 6 à 12 V, dont la
+référence flottante peut être élevée de 0 à 90 V DC au-dessus de 0 V pour
+réduire le stress cathode/chauffage.
 
 <p align="center"><img src="doc/KICAD-HV.png" width="280" alt="Carte HV, tension d'anode"></p>
 
@@ -121,12 +122,13 @@ sol sous GStreamer avec détection annotée en temps réel.
 | | |
 |---|---|
 | [**CCS-MSP430-pwl**](https://github.com/Nicolboy/CCS-MSP430-pwl) | alimentation fantôme 48 V sur 1x pile AA, MSP430G2252 |
-| [**CCS-MSPM0-pwl**](https://github.com/Nicolboy/CCS-MSPM0-pwl) | le même, porté sur MSPM0C1104 — Cortex-M0+ |
+| [**CCS-MSPM0-pwl**](https://github.com/Nicolboy/CCS-MSPM0-pwl) | le même, porté sur MSPM0C1104 — Cortex-M0+, **en production depuis 2025** |
 
 Élévation 1V vers 48 V par DC/DC polyphasé sur un microcontrôleur à 20 broches,
 avec **auto-étalonnage sauvegardé en flash** : plutôt que de figer un rapport
 cyclique calculé, chaque carte se règle sur ses propres composants sous charge
-connue.
+connue. Boucle de régulation validée par un **diagramme de Bode mesuré**
+(analyseur de réseau), pas seulement simulée.
 
 Le dépôt MSPM0 garde le journal du portage, périphérique par périphérique, dans
 l'ordre où ils ont été franchis.
@@ -138,6 +140,7 @@ l'ordre où ils ont été franchis.
 | Domaine | |
 |---|---|
 | Électronique | **KiCad 10**, kicad-cli, API kipy |
+| Mesure | Oscilloscope, multimètre, analyseur et sonde logique |
 | Microcontrôleurs TI | **Code Composer Studio**, C2000Ware, MSPM0 SDK, SysConfig |
 | ESP32 | **ESP-IDF**, PlatformIO |
 | Linux embarqué | **VS Code**, GStreamer, MAVLink/ArduPilot, YOLOv8 |
