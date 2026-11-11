@@ -1,5 +1,7 @@
 # Nicolas Boyer
 
+<p align="center"><img src="doc/pwl.png" width="280" alt="PWL low noise microphone power"></p>
+
 Power electronics and embedded systems — from datasheet to routed board,
 from register-level firmware to LLM-driven agents in the hardware design
 loop itself.
@@ -11,6 +13,34 @@ loop itself.
 - Natural-language drone control: a Jetson-hosted LLM turns French
   voice/text instructions into MAVLink commands, with real-time YOLOv8
   detection over a long-range video downlink
+
+---
+
+## Ce que je fais
+
+**Conception électronique** — lecture et interprétation de schémas, choix de
+composants sur datasheet, analogique et numérique. Chaînes de mesure de
+courant, conditionnement, références de tension, protections.
+
+**PCB** — conception et routage sous KiCad, du symbole au Gerber. Contraintes
+de fabrication assumées : les projets existent en variante 2 couches gravée à
+la maison pour itérer vite, et 4 couches en fabrication externe pour les plans
+de masse continus.
+
+**Conversion d'énergie** — boost, polyphasé, soft start, régulation numérique,
+protections matérielles à déclenchement rapide. De quelques milliampères sous
+48 V à 500 V sur batterie.
+
+**Embarqué** — C sur MSP430, MSPM0, C2000, ESP32 ; Python sur Linux embarqué.
+Écriture directe de registres quand la couche d'abstraction coûte trop cher, et
+étalonnage fondé sur la mesure plutôt que sur le calcul.
+
+**IA appliquée** — inférence embarquée sur Jetson, interprétation d'instructions
+en langage naturel vers des commandes machine. Et l'usage d'agents dans la
+conception matérielle elle-même : lecture de documentation technique, génération
+de symboles, vérifications exécutables.
+
+---
 
 Électronique de puissance, embarqué, et ce qui va avec — de la lecture de
 datasheet au routage, du registre au modèle de langage.
@@ -100,32 +130,6 @@ connue.
 
 Le dépôt MSPM0 garde le journal du portage, périphérique par périphérique, dans
 l'ordre où ils ont été franchis.
-
----
-
-## Ce que je fais
-
-**Conception électronique** — lecture et interprétation de schémas, choix de
-composants sur datasheet, analogique et numérique. Chaînes de mesure de
-courant, conditionnement, références de tension, protections.
-
-**PCB** — conception et routage sous KiCad, du symbole au Gerber. Contraintes
-de fabrication assumées : les projets existent en variante 2 couches gravée à
-la maison pour itérer vite, et 4 couches en fabrication externe pour les plans
-de masse continus.
-
-**Conversion d'énergie** — boost, polyphasé, soft start, régulation numérique,
-protections matérielles à déclenchement rapide. De quelques milliampères sous
-48 V à 500 V sur batterie.
-
-**Embarqué** — C sur MSP430, MSPM0, C2000, ESP32 ; Python sur Linux embarqué.
-Écriture directe de registres quand la couche d'abstraction coûte trop cher, et
-étalonnage fondé sur la mesure plutôt que sur le calcul.
-
-**IA appliquée** — inférence embarquée sur Jetson, interprétation d'instructions
-en langage naturel vers des commandes machine. Et l'usage d'agents dans la
-conception matérielle elle-même : lecture de documentation technique, génération
-de symboles, vérifications exécutables.
 
 ---
 
