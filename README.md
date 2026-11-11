@@ -1,5 +1,17 @@
 # Nicolas Boyer
 
+Power electronics and embedded systems — from datasheet to routed board,
+from register-level firmware to LLM-driven agents in the hardware design
+loop itself.
+
+- **11–25V → 500V** — dual-stage boost HV supply, hardware trip-zone
+  protection reacting in ~30ns, fully independent from the controlling MCU
+- **100% identical connector** across two different C2000 MCU packages,
+  generated from a single Markdown pin spec rather than hand-drawn in KiCad
+- Natural-language drone control: a Jetson-hosted LLM turns French
+  voice/text instructions into MAVLink commands, with real-time YOLOv8
+  detection over a long-range video downlink
+
 Électronique de puissance, embarqué, et ce qui va avec — de la lecture de
 datasheet au routage, du registre au modèle de langage.
 
