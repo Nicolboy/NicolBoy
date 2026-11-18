@@ -7,12 +7,15 @@ from register-level firmware to LLM-driven agents in the hardware design
 loop itself.
 
 - **11–25V → 500V** — dual-stage boost HV supply, hardware trip-zone
-  protection reacting in ~30ns, fully independent from the controlling MCU
-- **97.1% at 47W** — boost stage arbitrated in SPICE on vendor models
-  first checked against their own datasheets to 0.5%, losses summed
-  element by element and closed to 1.7%
-- **100% identical connector** across two different C2000 MCU packages,
-  generated from a single Markdown pin spec rather than hand-drawn in KiCad
+  protection: 30 ns comparator, qualified to ~0.5 µs on measurement to
+  reject switching spikes, fully independent from the controlling MCU
+- **91.7% measured at 50W** — stage 1 on real hardware (VSCODE-ESP32-hv-boost);
+  97.1% simulated at 47W for the next iteration (GaN, vendor models
+  checked against their own datasheets to 0.5%, losses closed to 1.7%)
+- **100% identical connector (56/56)** across two different C2000 MCU
+  packages in KICAD-C2000-devkit, generated from a single Markdown pin
+  spec rather than hand-drawn in KiCad — later abandoned on the
+  powershield carrier once the two devkits needed different connectors
 - Natural-language drone control: a Jetson-hosted LLM turns French
   voice/text instructions into MAVLink commands, with real-time YOLOv8
   detection over a long-range video downlink
@@ -74,10 +77,10 @@ superviseur qui pilote.
 | | |
 |---|---|
 | [**KICAD-C2000-float-flyback**](https://github.com/Nicolboy/KICAD-C2000-float-flyback) | alimentation filaments (HT), carte KiCad 10 |
-| [**KICAD-HV**](https://github.com/Nicolboy/KICAD-HV) | alimentation tension d'anode (200–500 V, boost double étage), carte KiCad 10 |
+| **KICAD-HV** | alimentation tension d'anode (200–500 V, boost double étage), carte KiCad 10 — dépôt non public |
 | [**KICAD-C2000-devkit**](https://github.com/Nicolboy/KICAD-C2000-devkit) | shield d'isolation et cartes devkit, KiCad 10 |
 | [**KICAD-C2000-powershield**](https://github.com/Nicolboy/KICAD-C2000-powershield) | carte d'alimentation USB-C PD, liaison devkit/cartes filles, KiCad 10 |
-| [**CCS-C2000-hv-boost**](https://github.com/Nicolboy/CCS-C2000-hv-boost) | firmware TMS320F28027 — deux étages boost, 10 V → 500 V |
+| [**CCS-C2000-hv-boost**](https://github.com/Nicolboy/CCS-C2000-hv-boost) | firmware TMS320F28027 — deux étages boost, 11–25 V → 500 V |
 | [**VSCODE-ESP32-hv-boost**](https://github.com/Nicolboy/VSCODE-ESP32-hv-boost) | ESP32-C3 — pont série, IHM OLED, API HTTP — étage 1 testé, **91,7 % mesuré à 50 W** |
 
 Deux étages de tension, deux logiques différentes.
@@ -94,17 +97,21 @@ réduire le stress cathode/chauffage.
 puis 100 kHz, permettent d'obtenir entre 200 V et 500 V à partir d'une
 tension d'alimentation entre 11 V et 25 V. La protection est **matérielle
 et locale** via une logique rapide dédiée : comparateurs analogiques et
-Trip Zone, environ 30 ns de réaction.
+Trip Zone, 30 ns pour le comparateur seul, qualifiés à environ 0,5 µs sur
+mesure pour ignorer les pointes de commutation.
 
 <p align="center"><img src="doc/devkit_B_F28P551.png" width="175" alt="Devkit F28P551"></p>
 
 **Carte de contrôle** : cette carte de contrôle PWM/ADC est dessinée pour
 deux microcontrôleurs différents — F280037 et F28P551 — avec un connecteur
-**identique à 100 %**. Son brochage est décrit en Markdown, les symboles
-KiCad en sont générés : les règles de conception deviennent exécutables au
-lieu d'être seulement écrites. La boucle de régulation est intégralement
-logicielle, dans le firmware de ces microcontrôleurs de la famille C2000
-Texas Instruments, spécialisés dans la conversion d'énergie.
+**identique à 100 % (56/56 broches)** dans KICAD-C2000-devkit. Son brochage
+est décrit en Markdown, les symboles KiCad en sont générés : les règles de
+conception deviennent exécutables au lieu d'être seulement écrites. Sur la
+carte d'alimentation qui a succédé au shield (KICAD-C2000-powershield), le
+connecteur du devkit F28P551 a changé (décision #25) : les deux devkits ne
+sont plus interchangeables sur ce shield-là. La boucle de régulation est
+intégralement logicielle, dans le firmware de ces microcontrôleurs de la
+famille C2000 Texas Instruments, spécialisés dans la conversion d'énergie.
 
 <p align="center"><img src="doc/shield.png" width="280" alt="Carte d'alimentation, liaison devkit / cartes filles"></p>
 
@@ -194,8 +201,8 @@ reconstruit, aberrant d'un facteur 11 dans un sens et 860 dans l'autre.
 Élévation 1V vers 48 V par DC/DC polyphasé sur un microcontrôleur à 20 broches,
 avec **auto-étalonnage sauvegardé en flash** : plutôt que de figer un rapport
 cyclique calculé, chaque carte se règle sur ses propres composants sous charge
-connue. Boucle de régulation validée par un **diagramme de Bode mesuré**
-(analyseur de réseau), pas seulement simulée.
+connue. **Réponse en fréquence du chemin audio mesurée à l'analyseur de
+réseau** (WaveForms, 10 Hz – 500 kHz), en complément de la simulation.
 
 Le dépôt MSPM0 garde le journal du portage, périphérique par périphérique, dans
 l'ordre où ils ont été franchis.
@@ -208,7 +215,7 @@ l'ordre où ils ont été franchis.
 |---|---|
 | Électronique | **KiCad 10**, kicad-cli, API kipy |
 | Simulation | **LTspice**, ngspice, modèles constructeur, numpy/scipy/matplotlib |
-| Mesure | Oscilloscope, multimètre, analyseur et sonde logique |
+| Mesure | Oscilloscope, multimètre, analyseur et sonde logique, analyseur de réseau (WaveForms) |
 | Microcontrôleurs TI | **Code Composer Studio**, C2000Ware, MSPM0 SDK, SysConfig |
 | ESP32 | **ESP-IDF**, PlatformIO |
 | Linux embarqué | **VS Code**, GStreamer, MAVLink/ArduPilot, YOLOv8 |
