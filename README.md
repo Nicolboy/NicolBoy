@@ -162,6 +162,26 @@ composant venait d'un fichier reconstruit à la main — il a été retiré.
 
 <p align="center"><img src="doc/LTSPICE-boost-waterfall.png" width="420" alt="Waterfall isométrique du nœud de commutation"></p>
 
+**Un modèle se contrôle avant de s'en servir.** Un banc d'impédance confronte
+tout modèle de composant passif à une référence — modèle constructeur, courbe
+de datasheet, paramètres S — sur le module, la phase, l'écart en dB et
+l'abaque de Smith. Les quatre éléments d'un modèle d'inductance se déduisent
+en forme fermée de quatre nombres de catalogue ; le résultat reproduit le
+modèle du fabricant à **0,09 dB** sous la résonance propre.
+
+<p align="center"><img src="doc/LTSPICE-boost-smith.png" width="560" alt="Abaque de Smith, référence constructeur et modèle synthétisé superposés"></p>
+
+Référence et modèle **superposés**, jamais juxtaposés : on ne voit pas où deux
+courbes divergent en les regardant côte à côte. C'est ici que se lit le défaut
+que le tracé de module laisse passer — au-delà de la résonance propre la
+référence s'enroule vers l'intérieur, les pertes d'un élément absent du modèle
+simplifié, pour 1,7 dB seulement sur le module.
+
+Et le contrôle qui ne demande aucune référence : les **5 071 modèles
+constructeur** présents sur le disque forment un nuage de vraisemblance. Une
+pièce qui en sort est suspecte en soi — c'est ce qui aurait arrêté le fichier
+reconstruit, aberrant d'un facteur 11 dans un sens et 860 dans l'autre.
+
 ---
 
 ## Un portage entre deux architectures
@@ -221,7 +241,9 @@ inductance de puissance · pertes fer et cuivre · Steinmetz · thermique
 
 **Simulation et analyse** — SPICE · LTspice · ngspice · modèles constructeur ·
 extraction Coss / Qoss / Eoss · Rds(on) en température · bilan de pertes ·
-rendement · facteur de qualité · résonance · FFT · FFT court terme ·
+rendement · facteur de qualité · résonance · **courbe d'impédance** ·
+**abaque de Smith** · résonance propre (SRF) · paramètres S · Touchstone ·
+synthèse et validation de modèles de passifs · FFT · FFT court terme ·
 spectrogramme · waterfall · CEM conduite · CISPR · diagramme de Bode
 
 **Conception PCB** — KiCad · saisie schématique · routage · 2 et 4 couches ·
