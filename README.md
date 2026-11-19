@@ -135,6 +135,15 @@ modèle de langage les interprète et produit les commandes MAVLink vers
 ArduPilot. La liaison vidéo passe par wifibroadcast longue portée, décodée au
 sol sous GStreamer avec détection annotée en temps réel.
 
+**Testable en ligne dès maintenant** :
+[sable.nicolasboyer.com](https://sable.nicolasboyer.com). La capture audio et
+la vue 3D (Three.js/WebGL) tournent entièrement dans le navigateur ; le texte
+ou la voix de l'opérateur sont eux envoyés au Jetson, où un LLM local (LFM3,
+via Ollama, sans appel externe) transcrit, interprète puis valide la commande
+avant de piloter un drone simulé sous ArduPilot SITL.
+
+<p align="center"><img src="doc/wireclaw-sable-screenshot.png" width="560" alt="Page WireClaw — commande vocale/texte et simulation 3D dans le navigateur"></p>
+
 ---
 
 ## Le dimensionnement, avant la carte
